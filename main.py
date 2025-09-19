@@ -1,7 +1,3 @@
-#!/usr/bin/python
-
-# This is a simple echo bot using the decorator mechanism.
-# It echoes any incoming text messages.
 import asyncio
 import os
 
@@ -10,10 +6,9 @@ from telebot.async_telebot import AsyncTeleBot
 bot = AsyncTeleBot(os.environ["BOTIKKK2004_TELEGRAM_TOKEN"])
 
 
-# Handle '/start' and '/help'
 @bot.message_handler(commands=['help', 'start'])
 async def send_welcome(message):
-    text = 'Hi, I am botikkk2004.\nJust write me something and I will repeat it!'
+    text = 'Привет, я botikkk2004.\nПросто напишите мне что-нибудь, и я повторю это!'
     await bot.reply_to(message, text)
 
 
