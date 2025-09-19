@@ -1,7 +1,8 @@
 import os
 
-from sqlalchemy import Column, Integer, String, Boolean, DateTime, BigInteger, create_engine
-from sqlalchemy.orm import declarative_base
+from sqlalchemy import Column, String, Boolean, DateTime, BigInteger
+from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
+from sqlalchemy.ext.declarative import declarative_base
 from datetime import datetime, UTC
 
 from sqlalchemy.orm import sessionmaker
@@ -24,6 +25,12 @@ class User(Base):
     def __repr__(self):
         return f"<User(id={self.telegram_id}, username='{self.username}')>"
 
+DATABASE_URL = os.environ.get("BOTIKKK2004_DATABASE_URL", "sqlite:///src/dao/botikkk2004.db")
 
-engine = create_engine('sqlite:///botikkk2004.db', echo=True)
-Base.metadata.create_all(engine)
+
+async_engine = create_async_engine(
+    "sqlite+aiosqlite:///botikkk2004.db",
+    echo=True
+)
+
+AsyncSessionLocal = sessionmaker(async_engine, class_=AsyncSession, expire_on_commit=False) # NoQa
