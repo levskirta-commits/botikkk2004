@@ -25,11 +25,10 @@ class User(Base):
     def __repr__(self):
         return f"<User(id={self.telegram_id}, username='{self.username}')>"
 
-DATABASE_URL = os.environ.get("BOTIKKK2004_DATABASE_URL", "sqlite:///src/dao/botikkk2004.db")
-
+DATABASE_URL = os.environ.get("BOTIKKK2004_DATABASE_URL", "sqlite+aiosqlite:///src/dao/botikkk2004.db")
 
 async_engine = create_async_engine(
-    "sqlite+aiosqlite:///botikkk2004.db",
+    DATABASE_URL,
     echo=True
 )
 
