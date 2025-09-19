@@ -1,8 +1,7 @@
 import os
 
-from sqlalchemy import Column, String, Boolean, DateTime, BigInteger
-from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
-from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Column, Integer, String, Boolean, DateTime, BigInteger, create_engine
+from sqlalchemy.orm import declarative_base
 from datetime import datetime, UTC
 
 from sqlalchemy.orm import sessionmaker
@@ -11,7 +10,7 @@ Base = declarative_base()
 
 
 class User(Base):
-    __tablename__ = 'servbot_users'
+    __tablename__ = 'botikkk2004_users'
 
     telegram_id = Column(BigInteger, primary_key=True)  # ID пользователя в Telegram
     username = Column(String(50), nullable=True)  # @username (может быть None, если скрыт)
@@ -26,9 +25,5 @@ class User(Base):
         return f"<User(id={self.telegram_id}, username='{self.username}')>"
 
 
-async_engine = create_async_engine(
-    os.environ["SERVBOT_DATABASE_URL"],
-    echo=True
-)
-
-AsyncSessionLocal = sessionmaker(async_engine, class_=AsyncSession, expire_on_commit=False) # NoQa
+engine = create_engine('sqlite:///botikkk2004.db', echo=True)
+Base.metadata.create_all(engine)
